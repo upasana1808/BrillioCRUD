@@ -49,7 +49,6 @@ public class TeamServiceTest {
         team2.setExChampion(false);
         team2.setCoach("Coach B");
     }
-
     @Test
     void testRead() {
         List<Team> teams = Arrays.asList(team1, team2);
@@ -60,7 +59,6 @@ public class TeamServiceTest {
         assertEquals("Team A", result.get(0).getName());
         assertEquals("Team B", result.get(1).getName());
     }
-
     @Test
     void testReadOne() {
         when(teamRepository.findById(1)).thenReturn(Optional.of(team1));
@@ -69,13 +67,11 @@ public class TeamServiceTest {
         assertTrue(result.isPresent());
         assertEquals("Team A", result.get().getName());
     }
-
     @Test
     void testAdd() {
         teamService.add(team1);
         verify(teamRepository).save(team1);
     }
-
     @Test
     void testUpdate() {
         Team updatedTeam = new Team();
@@ -83,18 +79,14 @@ public class TeamServiceTest {
         updatedTeam.setCaptain("Updated Captain A");
         updatedTeam.setExChampion(false);
         updatedTeam.setCoach("Updated Coach A");
-
         when(teamRepository.findById(1)).thenReturn(Optional.of(team1));
-
         teamService.update(1, updatedTeam);
-
         assertEquals("Updated Team A", team1.getName());
         assertEquals("Updated Captain A", team1.getCaptain());
         assertEquals(false, team1.isExChampion());
         assertEquals("Updated Coach A", team1.getCoach());
         verify(teamRepository).save(team1);
     }
-
     @Test
     void testDelete() {
         teamService.delete(1);

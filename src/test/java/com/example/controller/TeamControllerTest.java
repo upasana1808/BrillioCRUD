@@ -37,19 +37,14 @@ public class TeamControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private TeamService teamService;
-
     @MockBean
     private TeamRepository teamRepository;
-
     @InjectMocks
     private TeamController teamController;
-
     private Team team1;
     private Team team2;
-
     @BeforeEach
     void setUp() {
         team1 = new Team();
@@ -79,7 +74,6 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$[0].name").value("Team A"))
                 .andExpect(jsonPath("$[1].name").value("Team B"));
     }
-
     @Test
     void testReadByName() throws Exception {
         List<Team> teams = Arrays.asList(team1);
@@ -88,8 +82,7 @@ public class TeamControllerTest {
         mockMvc.perform(get("/team/readname/Team A"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("Team A"));
-    }
-    
+    }    
     @Test
     void testReadOne() throws Exception {
         when(teamService.readOne(1)).thenReturn(Optional.of(team1));
@@ -98,7 +91,6 @@ public class TeamControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Team A"));
     }
-
     @Test
     void testAdd() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -111,7 +103,6 @@ public class TeamControllerTest {
 
         verify(teamRepository).save(team1);
     }
-
     @Test
     void testUpdate() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper(); 
@@ -125,7 +116,7 @@ public class TeamControllerTest {
         verify(teamService).update(1, team1);
     }
 
-    @Test
+    @Test 
     void testDelete() throws Exception {
         mockMvc.perform(delete("/team/delete/1"))
                 .andExpect(status().isOk());

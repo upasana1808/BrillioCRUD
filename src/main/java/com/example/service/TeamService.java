@@ -41,7 +41,7 @@ public class TeamService {
 		
 	} 
 	 public List<Team> findByName(String name) {
-	        return tr.findByName(name);
+	        return tr.findByName(name); 
 	    }
 	
 }
